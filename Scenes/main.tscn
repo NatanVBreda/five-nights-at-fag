@@ -1,0 +1,128 @@
+[gd_scene load_steps=13 format=3 uid="uid://ce6n3yxtb6rd8"]
+
+[ext_resource type="PackedScene" uid="uid://bjcafthn7xvwe" path="res://Scenes/door.tscn" id="1_bo1nx"]
+[ext_resource type="Script" uid="uid://l71rgo117q33" path="res://Scenes/sala_seguranca.gd" id="1_kry3j"]
+[ext_resource type="PackedScene" uid="uid://dyg81yctfuama" path="res://Scenes/DoorButton.tscn" id="2_8gbba"]
+[ext_resource type="Script" uid="uid://cnqnj01b1cw4o" path="res://Scenes/player.gd" id="2_21xkr"]
+[ext_resource type="Script" uid="uid://dafsde0j7va3a" path="res://Scenes/doors_controller.gd" id="3_6bp64"]
+[ext_resource type="PackedScene" uid="uid://c8nakyt6c4gpd" path="res://Scenes/LightButton.tscn" id="3_8gbba"]
+[ext_resource type="Script" uid="uid://b8dq8ikwiree4" path="res://Scenes/buttons.gd" id="4_21xkr"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7u77a"]
+size = Vector2(30, 30)
+
+[sub_resource type="Environment" id="Environment_jjgbg"]
+background_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_bo1nx"]
+size = Vector2(2.5, 4)
+
+[sub_resource type="QuadMesh" id="QuadMesh_jjvhh"]
+size = Vector2(2.5, 2.4)
+
+[sub_resource type="QuadMesh" id="QuadMesh_8gbba"]
+size = Vector2(6, 4)
+
+[node name="Main" type="Node3D"]
+
+[node name="Sala_seguranca" type="Node3D" parent="."]
+script = ExtResource("1_kry3j")
+
+[node name="Floor" type="MeshInstance3D" parent="Sala_seguranca"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9352, 0.0132806, -0.0662005)
+mesh = SubResource("PlaneMesh_7u77a")
+skeleton = NodePath("../..")
+
+[node name="Celling" type="MeshInstance3D" parent="Sala_seguranca"]
+transform = Transform3D(1, 0, 0, 0, -0.999999, 0.0010995, 0, -0.0010995, -0.999999, 13.9263, 3.94824, -0.0745571)
+mesh = SubResource("PlaneMesh_7u77a")
+skeleton = NodePath("../Floor")
+
+[node name="Player" type="Node3D" parent="Sala_seguranca"]
+script = ExtResource("2_21xkr")
+
+[node name="Camera3D" type="Camera3D" parent="Sala_seguranca/Player"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.011024, 2.01836, -0.0157592)
+environment = SubResource("Environment_jjgbg")
+fov = 60.0
+far = 20.0
+
+[node name="Walls" type="Node3D" parent="Sala_seguranca"]
+
+[node name="Wall 5" type="MeshInstance3D" parent="Sala_seguranca/Walls"]
+transform = Transform3D(0.999996, 0, 0.00181417, 0, 1, 0, -0.00181417, 0, 0.999996, 4.18722, 1.97635, -3.00099)
+mesh = SubResource("QuadMesh_bo1nx")
+skeleton = NodePath("")
+
+[node name="Wall 7" type="MeshInstance3D" parent="Sala_seguranca/Walls"]
+transform = Transform3D(0.999902, 0, 0.0138216, 0, 1, 0, -0.0138216, 0, 0.999902, 2.3229, 0.882887, -2.98337)
+mesh = SubResource("QuadMesh_jjvhh")
+skeleton = NodePath("")
+
+[node name="Wall 6" type="MeshInstance3D" parent="Sala_seguranca/Walls"]
+transform = Transform3D(-0.999974, 0, -0.00661334, 0, 1, 0, 0.00661334, 0, -0.999974, 0.154987, 1.95606, 2.95951)
+mesh = SubResource("QuadMesh_bo1nx")
+skeleton = NodePath("")
+
+[node name="Wall 4" type="MeshInstance3D" parent="Sala_seguranca/Walls"]
+transform = Transform3D(-0.999981, 0, -0.00570628, 0, 1, 0, 0.00570628, 0, -0.999981, 4.15469, 1.96122, 2.8989)
+mesh = SubResource("QuadMesh_bo1nx")
+skeleton = NodePath("")
+
+[node name="Wall 3" type="MeshInstance3D" parent="Sala_seguranca/Walls"]
+transform = Transform3D(0.999998, 0, 0.000907088, 0, 1, 0, -0.000907088, 0, 0.999998, 0.187263, 1.98152, -2.95958)
+mesh = SubResource("QuadMesh_bo1nx")
+skeleton = NodePath("")
+
+[node name="Wall 2" type="MeshInstance3D" parent="Sala_seguranca/Walls"]
+transform = Transform3D(-0.00453801, 0, -0.999989, 0, 1, 0, 0.999989, 0, -0.00453801, 5.36153, 1.98906, -0.0771415)
+mesh = SubResource("QuadMesh_8gbba")
+
+[node name="Wall 8" type="MeshInstance3D" parent="Sala_seguranca/Walls"]
+transform = Transform3D(-0.998629, 0, -0.052336, 0, 1, 0, 0.052336, 0, -0.998629, 3.76917, 1.98906, 5.62828)
+mesh = SubResource("QuadMesh_8gbba")
+
+[node name="Wall 9" type="MeshInstance3D" parent="Sala_seguranca/Walls"]
+transform = Transform3D(0.99937, 0, 0.0354576, 0, 1, 0, -0.0354576, 0, 0.99937, 3.76917, 1.98906, -5.74627)
+mesh = SubResource("QuadMesh_8gbba")
+
+[node name="Doors" type="Node3D" parent="Sala_seguranca"]
+script = ExtResource("3_6bp64")
+
+[node name="DoorDireita" parent="Sala_seguranca/Doors" instance=ExtResource("1_bo1nx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14906, 2.10128, 2.92067)
+
+[node name="DoorEsquerda" parent="Sala_seguranca/Doors" instance=ExtResource("1_bo1nx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14906, 4.34059, -2.91661)
+
+[node name="Buttons" type="Node3D" parent="Sala_seguranca"]
+script = ExtResource("4_21xkr")
+
+[node name="DoorButtonLeft" parent="Sala_seguranca/Buttons" instance=ExtResource("2_8gbba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.00665, -2.94841)
+
+[node name="DoorButtonRight" parent="Sala_seguranca/Buttons" instance=ExtResource("2_8gbba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.4, 2.95483)
+
+[node name="LightButtonLeft" parent="Sala_seguranca/Buttons" instance=ExtResource("3_8gbba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00366, 2.42469, -2.94806)
+
+[node name="LightButtonRight" parent="Sala_seguranca/Buttons" instance=ExtResource("3_8gbba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.003, 1.8, 2.957)
+
+[node name="Lights" type="Node3D" parent="Sala_seguranca"]
+
+[node name="LuzDireita" type="OmniLight3D" parent="Sala_seguranca/Lights"]
+transform = Transform3D(-0.292455, 0.956279, 4.82703e-09, 0.956231, 0.292441, 0.0100528, 0.00961332, 0.00294001, -0.99995, 2.82698, 2.95102, 4.15027)
+omni_range = 3.0
+omni_attenuation = 1.202
+
+[node name="LuzMeio" type="OmniLight3D" parent="Sala_seguranca/Lights"]
+transform = Transform3D(-0.292455, 0.956279, 4.82703e-09, 0.956231, 0.292441, 0.0100528, 0.00961332, 0.00294001, -0.99995, 2.82698, 2.95102, 0.0089823)
+omni_range = 4.3
+omni_attenuation = 1.202
+
+[node name="LuzEsquerda" type="OmniLight3D" parent="Sala_seguranca/Lights"]
+transform = Transform3D(-0.292455, 0.956279, -3.5451e-10, 0.956231, 0.29244, 0.0100528, 0.00961332, 0.00294, -0.99995, 1.36649, 3.47058, -3.77865)
+omni_range = 3.0
+omni_attenuation = 1.202
